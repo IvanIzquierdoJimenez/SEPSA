@@ -16,7 +16,6 @@ public class Client {
 	Socket s;
 	DataOutputStream out;
 	BufferedReader in;
-	Archivo arc = new Archivo();
 	public Client()
 	{
 		while(s==null)

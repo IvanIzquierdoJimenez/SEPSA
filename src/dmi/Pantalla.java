@@ -43,12 +43,12 @@ public class Pantalla extends JFrame{
 	JLabel spd;
 	JLabel modo;
 	String parameter;
+	String serieAnterior;
 	
 	JPanel panel1;
 	JPanel panel2;
 	
 	//float scale = /*1.3f*/ 1.2f;
-	public static Archivo arc = new Archivo();
 	public int value=-1;
 	JLabel digit1 = new JLabel();
 	JLabel digit2 = new JLabel();;
@@ -77,8 +77,8 @@ public class Pantalla extends JFrame{
 		panel1 = new JPanel();
 		panel1.setBackground(Color.BLACK);
 		panel1.setLayout(null);
-		this.getContentPane().add(panel1);
-		panel1.setLayout(null);
+		getContentPane().add(panel1);
+		panel1.setVisible(true);
 		vel = new Velocidad(this);
 		vel.setBounds(0, 0, getScale(450), getScale(350));
 		panel1.add(vel);
@@ -140,8 +140,7 @@ public class Pantalla extends JFrame{
 		 unit.setForeground(Color.WHITE);
 		 unit.setHorizontalAlignment(SwingConstants.CENTER);
 		 panel1.add(unit);
-		 unit.setBounds(getScale(centx-45), getScale(centy-50), getScale(80), getScale(30));
-		 panel1.setVisible(true); 
+		 unit.setBounds(getScale(centx-45), getScale(centy-50), getScale(80), getScale(30)); 
 	}
 	
 	public void DisplayType2() 
@@ -151,7 +150,6 @@ public class Pantalla extends JFrame{
 		panel2.setLayout(null);
 		this.getContentPane().add(panel2);
 		 vel = new Velocidad(this);
-		 panel2.add(vel);
 		 vel.setBounds(0, 0, getScale(450), getScale(350));
 		 for(int i=0; i<=v_max; i+=divLinVel)
 		 {
@@ -236,6 +234,7 @@ public class Pantalla extends JFrame{
 		 panel2.add(vigil);
 		 vigil.setBounds(getScale(10), getScale(10), getScale(50), getScale(44));
 		 panel2.setVisible(true);
+		 panel2.add(vel);
 	}
 	
 	public void updateReal(float curr)
@@ -353,13 +352,8 @@ public class Pantalla extends JFrame{
 			}
 			else if(s.startsWith("serie="))
 			{
-				try {
-					p.parameter = s.substring(6);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+				p.parameter = s.substring(6);
+				//System.out.println(p.parameter);
 				if(p.parameter.equals("447"))
 				{	
 					p.divLinVel = 20;
@@ -382,6 +376,17 @@ public class Pantalla extends JFrame{
 					p.v_max = 160;
 					p.DisplayType1();
 				}
+				else if(p.parameter.equals("Civia"))
+				{
+					p.divLinVel = 10;
+					p.modeActive = true;
+					p.kmActive = false;
+					p.displayType = 2;
+					p.prefColor = Color.GREEN;
+					p.spdColor = Color.YELLOW;
+					p.v_max = 150;
+					p.DisplayType2();
+				}
 			}
 			else if(s.startsWith("master_key="))
 			{
@@ -390,13 +395,15 @@ public class Pantalla extends JFrame{
 				{
 					if(p.displayType == 1)
 					{
-						
+						//p.DisplayType1();
+						p.repaint();
 						if(p.TestInit(p) == true);
 						else return;
 					}
 					else if(p.displayType == 2)
 					{
-						
+						//p.DisplayType2();
+						p.repaint();
 						if(p.TestInit(p) == true);
 						else return;
 					}
@@ -404,14 +411,15 @@ public class Pantalla extends JFrame{
 				}
 				if(Integer.parseInt(s.substring(11)) == 0) 
 				{
-					if(p.displayType == 1)
+					p.removeAll();
+					/*if(p.displayType == 1)
 					{
-						p.removeAll();
+						//p.removeAll();
 					}
 					else if(p.displayType == 2)
 					{
-						p.removeAll();
-					}
+						//p.removeAll();
+					}^*/
 				}
 				//System.out.println(Integer.parseInt(s.substring(11)));
 			}

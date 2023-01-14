@@ -149,7 +149,6 @@ public class Velocidad extends JLabel {
 			}
 		}
 		
-		
 		g2d.setStroke(bs4);
 		g2d.setTransform(transf);
 		g.setColor(p.spdColor);
