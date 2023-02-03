@@ -11,14 +11,11 @@ import javax.swing.Timer;
 import javax.swing.border.Border;
 
 import java.awt.*;
-
-
 public class Pantalla extends JFrame{
 
 	int AngIni = -29;
 	int Ang = 238;
 	int div = 2/*1.025f*/;
-	
 	/*
 	 * Parametros configurables
 	 */
@@ -29,12 +26,11 @@ public class Pantalla extends JFrame{
 	Color prefColor = Color.GREEN;
 	Color spdColor = Color.YELLOW;
 	static int v_max = 160;
-	/*------------------------*/
 	float scale = /*1.3f*/ 1.45f;
+	/*------------------------*/
 	JLabel Modo;
 	float v_pref = 0;
 	static float v_act = 0;
-	//static int v_max = 140;
 	int centx = 225;
 	int centy = 175+40;
 	Velocidad vel;
@@ -65,20 +61,14 @@ public class Pantalla extends JFrame{
 		 setVisible(true);
 		 setResizable(false);
 		 getContentPane().setBackground(Color.BLACK);
-		 /*if(displayType == 2) DisplayType2();
-		 else if(displayType == 1) DisplayType1();*/
-		 //Display();
 		 setDefaultCloseOperation(EXIT_ON_CLOSE);
-		 //setLayout(null);
 	}
-	
-	
+
 	public void DisplayType1() {
 		panel1 = new JPanel();
 		panel1.setBackground(Color.BLACK);
 		panel1.setLayout(null);
 		getContentPane().add(panel1);
-		panel1.setVisible(true);
 		vel = new Velocidad(this);
 		vel.setBounds(0, 0, getScale(450), getScale(350));
 		panel1.add(vel);
@@ -140,7 +130,8 @@ public class Pantalla extends JFrame{
 		 unit.setForeground(Color.WHITE);
 		 unit.setHorizontalAlignment(SwingConstants.CENTER);
 		 panel1.add(unit);
-		 unit.setBounds(getScale(centx-45), getScale(centy-50), getScale(80), getScale(30)); 
+		 unit.setBounds(getScale(centx-45), getScale(centy-50), getScale(80), getScale(30));
+		 panel1.setVisible(true);
 	}
 	
 	public void DisplayType2() 
@@ -233,8 +224,8 @@ public class Pantalla extends JFrame{
 		 vigil.setIcon(new ImageIcon(getClass().getResource("/dmi/vigilancia.JPG")));
 		 panel2.add(vigil);
 		 vigil.setBounds(getScale(10), getScale(10), getScale(50), getScale(44));
-		 panel2.setVisible(true);
 		 panel2.add(vel);
+		 panel2.setVisible(true);
 	}
 	
 	public void updateReal(float curr)
@@ -272,8 +263,6 @@ public class Pantalla extends JFrame{
 			spd.setText(Integer.toString(Math.round(v_act)));
 			repaint();
 		}
-		
-		//repaint();
 	}
 	public void updatePrefijada(float curr)
 	{
@@ -330,8 +319,6 @@ public class Pantalla extends JFrame{
 		c.sendData("register(mode)");
 		c.sendData("register(master_key)");
 		c.sendData("register(serie)");
-		/*if(p.TestInit(p) == true);
-		else return;*/
 		Thread.sleep(100);
 		
 		while(true)
@@ -353,7 +340,6 @@ public class Pantalla extends JFrame{
 			else if(s.startsWith("serie="))
 			{
 				p.parameter = s.substring(6);
-				//System.out.println(p.parameter);
 				if(p.parameter.equals("447"))
 				{	
 					p.divLinVel = 20;
@@ -363,7 +349,7 @@ public class Pantalla extends JFrame{
 					p.prefColor = Color.GREEN;
 					p.spdColor = Color.YELLOW;
 					p.v_max = 140;
-					p.DisplayType1();
+					//p.DisplayType1();
 				}
 				else if(p.parameter.equals("450"))
 				{
@@ -374,7 +360,7 @@ public class Pantalla extends JFrame{
 					p.prefColor = Color.GREEN;
 					p.spdColor = Color.YELLOW;
 					p.v_max = 160;
-					p.DisplayType1();
+					//p.DisplayType1();
 				}
 				else if(p.parameter.equals("Civia"))
 				{
@@ -385,7 +371,7 @@ public class Pantalla extends JFrame{
 					p.prefColor = Color.GREEN;
 					p.spdColor = Color.YELLOW;
 					p.v_max = 150;
-					p.DisplayType2();
+					//p.DisplayType2();
 				}
 			}
 			else if(s.startsWith("master_key="))
@@ -395,33 +381,26 @@ public class Pantalla extends JFrame{
 				{
 					if(p.displayType == 1)
 					{
-						//p.DisplayType1();
-						p.repaint();
+						p.DisplayType1();
+						//p.panel1.setVisible(true);
+						//p.repaint();
 						if(p.TestInit(p) == true);
 						else return;
 					}
 					else if(p.displayType == 2)
 					{
-						//p.DisplayType2();
-						p.repaint();
+						p.DisplayType2();
+						//p.panel2.setVisible(true);
+						//p.repaint();
 						if(p.TestInit(p) == true);
 						else return;
 					}
-					
 				}
-				if(Integer.parseInt(s.substring(11)) == 0) 
+				if(Integer.parseInt(s.substring(11)) == 0)
 				{
-					p.removeAll();
-					/*if(p.displayType == 1)
-					{
-						//p.removeAll();
-					}
-					else if(p.displayType == 2)
-					{
-						//p.removeAll();
-					}^*/
+					p.getContentPane().removeAll();
+					p.repaint();
 				}
-				//System.out.println(Integer.parseInt(s.substring(11)));
 			}
 		}
 	}
