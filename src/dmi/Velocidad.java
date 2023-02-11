@@ -122,7 +122,7 @@ public class Velocidad extends JLabel {
 			for(int i=0; i<=p.v_max; i+=10)
 			{
 				g2d.fill(line);
-				g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max*10));
+				g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max * 10));
 			}
 		}
 		
@@ -136,16 +136,36 @@ public class Velocidad extends JLabel {
 			for(int i=0; i+0.8<p.v_pref; i+=1)
 			{
 				g2d.fill(pref);
-				g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max*1));
+				g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max * 1));
 			}
 		}
 		else if(p.displayType == 2)
 		{
-			Rectangle pref = new Rectangle(getScale(1), getScale(1-r1), getScale(8), getScale(15f));
-			for(int i=0; i<p.v_pref; i+=2)
+			if(p.div == 1)
 			{
-				g2d.fill(pref);
-				g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max*2));
+				Rectangle pref = new Rectangle(getScale(1), getScale(1-r1), getScale(4), getScale(15f));
+				for(int i=0; i<p.v_pref; i+=1)
+				{
+					g2d.fill(pref);
+					g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max * 1));
+				}
+			}
+			else {
+				if(p.UT449 != false) {
+					Rectangle pref = new Rectangle(getScale(1), getScale(1 - r1), getScale(5.9), getScale(15f));
+					for (int i = 0; i < p.v_pref; i += 2) {
+						g2d.fill(pref);
+						g2d.rotate(Math.toRadians(p.Ang / (float) p.v_max * 2));
+					}
+				}
+				else
+				{
+					Rectangle pref = new Rectangle(getScale(1), getScale(1 - r1), getScale(8), getScale(15f));
+					for (int i = 0; i < p.v_pref; i += 2) {
+						g2d.fill(pref);
+						g2d.rotate(Math.toRadians(p.Ang / (float) p.v_max * 2));
+					}
+				}
 			}
 		}
 		
@@ -163,11 +183,36 @@ public class Velocidad extends JLabel {
 		}
 		else if(p.displayType == 2)
 		{
-			Rectangle spd = new Rectangle(getScale(1), getScale(0.5f-r2), getScale(8), getScale(14f));
-			for(int i=0; i<p.v_act; i+=2)
+			if(p.div == 1)
 			{
-				g2d.fill(spd);
-				g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max*2));
+				Rectangle spd = new Rectangle(getScale(1), getScale(0.5f-r2), getScale(4), getScale(14f));
+				for(int i=0; i<p.v_act; i+=1)
+				{
+					g2d.fill(spd);
+					g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max*1));
+				}
+			}
+			else
+			{
+				if(p.UT449 != false)
+				{
+					Rectangle spd = new Rectangle(getScale(1), getScale(0.5f-r2), getScale(5.9f), getScale(14f));
+					for(int i=0; i<p.v_act; i+=2)
+					{
+						g2d.fill(spd);
+						g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max*2));
+					}
+				}
+				else
+				{
+					Rectangle spd = new Rectangle(getScale(1), getScale(0.5f-r2), getScale(8), getScale(14f));
+					for(int i=0; i<p.v_act; i+=2)
+					{
+						g2d.fill(spd);
+						g2d.rotate(Math.toRadians(p.Ang/(float)p.v_max*2));
+					}
+				}
+
 			}
 		}
 		
